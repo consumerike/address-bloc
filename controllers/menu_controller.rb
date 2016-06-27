@@ -10,16 +10,19 @@ require_relative '../models/address_book'
    def main_menu
        
      puts "Main Menu - #{address_book.entries.count} entries"
+     
      puts "1 - View all entries"
      puts "2 - Create an entry"
      puts "3 - Search for an entry"
      puts "4 - Import entries from a CSV"
-     puts "5 - Exit"
+     puts "View Entry Number n"
+     puts "6 - Exit"
      print "Enter your selection: "
      
       selection = gets.to_i
      
      case selection
+     
        when 1
          system "clear"
          view_all_entries
@@ -36,7 +39,14 @@ require_relative '../models/address_book'
          system "clear"
          read_csv
          main_menu
+         
        when 5
+         system "clear"  
+         entry_n_submenu
+         main_menu
+         
+         puts "Which entry number?"
+       when 6
          puts "Good-bye!"
          # #8
          exit(0)
@@ -47,14 +57,30 @@ require_relative '../models/address_book'
          main_menu
      end
    end
+   
+   #entry n sub-menu method
+   def entry_n_submenu
+     print "view entry number"
+     selection = gets.chomp.to_i
+     
+       if selection < @address_book.entries.count
+           puts @address_book.entries(selection)
+           puts "Press enter to retrun to the main menu"
+           gets.chomp
+           system "clear"
+       else
+           puts "#{selection} is invalid"
+           entry_n_submenu
+       end
+   end
  
-   # #10
+  
    def view_all_entries
        
        address_book.entries.each do |entry|
          system "clear"
          puts entry.to_s
-     # #15
+    
          entry_submenu(entry)
        end
  
@@ -65,7 +91,7 @@ require_relative '../models/address_book'
    def create_entry
      system "clear"
        puts "New AddressBloc Entry"
-     # #12
+    
      print "Name: "
        name = gets.chomp
      print "Phone number: "
@@ -119,10 +145,10 @@ require_relative '../models/address_book'
 require_relative 'controllers/menu_controller'
 
   menu = MenuController.new
- # #5
+
     system "clear"
     puts "Welcome to AddressBloc!"
- # #6
+ 
  menu.main_menu
 
  

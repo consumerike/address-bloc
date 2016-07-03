@@ -1,6 +1,7 @@
 require_relative 'entry'
 require "csv"
-require "entries_2.csv"
+
+
 
 
 class AddressBook
